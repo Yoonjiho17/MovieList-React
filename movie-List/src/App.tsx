@@ -1,12 +1,22 @@
+/// <reference types="vite/client" />
 import React, { useEffect, useState } from 'react';
 import './App.css';
 
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 const BASE_URL = "https://api.themoviedb.org/3";
 
+interface Movie {
+  id: number;
+  poster_path: string;
+  title: string;
+  vote_average: number;
+  release_date: string;
+  overview: string;
+}
+
 function App() {
-  const [movies, setMovies] = useState([]);
-  const [selectedMovie, setSelectedMovie] = useState(null);
+  const [movies, setMovies] = useState<Movie[]>([]);
+  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
 
   const fetchPopularMovies = async () => {
     try {
@@ -25,7 +35,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const handleEsc = (e) => {
+    const handleEsc = (e: KeyboardEvent): void => {
       if (e.key === 'Escape') {
         setSelectedMovie(null);
       }
